@@ -161,8 +161,9 @@ function updateChatSimulator() {
   const headerHeight = Number.parseFloat(getComputedStyle(document.documentElement).getPropertyValue("--header-height")) || 72;
   const scrollableDistance = Math.max(1, rect.height - viewportHeight);
   const progress = Math.min(1, Math.max(0, (headerHeight + 12 - rect.top) / scrollableDistance));
-  const step = Math.min(5, Math.floor(progress * 6));
-  setChatStep(step);
+  const stepThresholds = [0.1, 0.46, 0.58, 0.66, 0.9];
+  const step = stepThresholds.findIndex((threshold) => progress < threshold);
+  setChatStep(step === -1 ? 5 : step);
 }
 
 function requestChatUpdate() {
