@@ -4,8 +4,8 @@
   "description": "Landing page for Creators Agent",
   "main": "index.html",
   "scripts": {
-    "build": "echo 'Static HTML project, no build required'",
-    "start": "serve -p $PORT -s ."
+    "build": "mkdir -p dist && cp index.html styles.css script.js static.json vercel.json dist/ 2>/dev/null || true",
+    "start": "serve -p $PORT -s dist"
   },
   "dependencies": {
     "serve": "^14.2.1"
