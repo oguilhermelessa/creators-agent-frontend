@@ -1,0 +1,12 @@
+{
+  "name": "landing-page",
+  "version": "1.0.0",
+  "description": "Landing page for Creators Agent",
+  "main": "index.html",
+  "scripts": {
+    "start": "serve -p $PORT -s ."
+  },
+  "dependencies": {
+    "serve": "^14.2.1"
+  }
+}
