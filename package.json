@@ -4,6 +4,7 @@
   "description": "Landing page for Creators Agent",
   "main": "index.html",
   "scripts": {
+    "build": "echo 'Static HTML project, no build required'",
     "start": "serve -p $PORT -s ."
   },
   "dependencies": {
