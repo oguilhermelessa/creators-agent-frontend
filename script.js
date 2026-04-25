@@ -4,12 +4,14 @@ const demoTabs = Array.from(document.querySelectorAll(".demo-tab"));
 const conversationSection = document.querySelector("#simulador");
 const motionPreference = window.matchMedia("(prefers-reduced-motion: reduce)");
 let chatAnimationFrame = 0;
+const thankYouPage = "obrigado.html";
+const appConfig = window.AGENTE_DIY_CONFIG || {};
 
 const demoContent = {
   lead: {
     title: "Transformar curiosos em conversas úteis.",
     copy:
-      "Ele responde com seu repertório, entende o momento da pessoa e cria o próximo passo sem você estar online.",
+      "Seu agente responde com seu repertório, entende o momento da pessoa e cria o próximo passo sem você estar online.",
     steps: [
       "Receber a pergunta do público",
       "Responder com sua voz",
@@ -19,7 +21,7 @@ const demoContent = {
   paid: {
     title: "Descobrir se sua audiência pagaria por mais acesso.",
     copy:
-      "Antes de construir um produto inteiro, o agente testa interesse por assinatura, venda avulsa, mentoria ou conteúdo premium.",
+      "Antes de construir um produto inteiro, você pode testar interesse por assinatura, venda avulsa, mentoria ou conteúdo premium.",
     steps: [
       "Entregar uma amostra gratuita",
       "Mostrar o próximo nível",
@@ -42,7 +44,8 @@ function getFormData(formElement) {
   const data = new FormData(formElement);
   return {
     name: String(data.get("name") || "").trim(),
-    contact: String(data.get("contact") || "").trim(),
+    email: String(data.get("email") || "").trim(),
+    whatsapp: String(data.get("whatsapp") || "").trim(),
     niche: String(data.get("niche") || "").trim(),
     audience: String(data.get("audience") || "").trim(),
     goal: String(data.get("goal") || "").trim(),
@@ -52,14 +55,19 @@ function getFormData(formElement) {
 }
 
 function persistLeadLocally(lead) {
-  const storageKey = "creator-agent-pilot-leads";
+  const storageKey = "agente-diy-access-leads";
   const current = JSON.parse(localStorage.getItem(storageKey) || "[]");
   current.push(lead);
   localStorage.setItem(storageKey, JSON.stringify(current));
 }
 
+function getLeadEndpoint() {
+  if (window.location.protocol === "file:") return "";
+  return String(appConfig.leadEndpoint || "").trim();
+}
+
 async function persistLead(lead) {
-  const endpoint = form.dataset.endpoint?.trim();
+  const endpoint = getLeadEndpoint();
 
   if (!endpoint) {
     persistLeadLocally(lead);
@@ -99,13 +107,15 @@ function setFieldError(fieldName, message) {
 
 function validateLeadForm() {
   const data = getFormData(form);
+  const emailLooksValid = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(data.email);
   const errors = {
     name: data.name ? "" : "Informe seu nome.",
-    contact: data.contact ? "" : "Informe e-mail ou WhatsApp.",
+    email: emailLooksValid ? "" : "Informe um e-mail válido.",
+    whatsapp: "",
     niche: data.niche ? "" : "Conte sobre o que você cria.",
     audience: data.audience ? "" : "Selecione onde está sua audiência.",
     goal: data.goal ? "" : "Escolha o primeiro uso do seu agente.",
-    byok: data.byok ? "" : "Confirme que topa conversar sobre custos de IA na etapa guiada.",
+    byok: data.byok ? "" : "Confirme que topa conversar sobre custos de IA quando o acesso abrir.",
   };
 
   Object.entries(errors).forEach(([field, message]) => setFieldError(field, message));
@@ -178,6 +188,11 @@ if (conversationSection) {
   motionPreference.addEventListener?.("change", updateChatSimulator);
 }
 
+function getThankYouUrl() {
+  const url = new URL(thankYouPage, window.location.href);
+  return url.href;
+}
+
 form?.addEventListener("input", (event) => {
   const name = event.target?.name;
   if (name) setFieldError(name, "");
@@ -208,13 +223,12 @@ form?.addEventListener("submit", async (event) => {
   try {
     await persistLead(lead);
     form.reset();
-    statusEl.textContent =
-      "Recebido. Próxima etapa: analisar seu caso e enviar convite para desenhar o agente.";
+    window.location.href = thankYouPage;
   } catch (error) {
     statusEl.textContent = "Não foi possível registrar agora. Tente novamente em alguns instantes.";
     statusEl.classList.add("is-error");
   } finally {
     submitButton.disabled = false;
-    submitButton.textContent = "Quero receber convite";
+    submitButton.textContent = "Entrar na lista de espera";
   }
 });

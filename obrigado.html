@@ -1,0 +1,60 @@
+<!doctype html>
+<html lang="pt-BR">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Aplicação recebida | Agente Diy</title>
+  <meta name="description"
+    content="Sua aplicação para a lista de espera do Agente Diy foi recebida. Entre na comunidade para acompanhar os próximos passos." />
+  <link rel="stylesheet" href="styles.css" />
+  <script src="config.js"></script>
+</head>
+
+<body class="thanks-page">
+  <a class="skip-link" href="#conteudo">Pular para o conteúdo</a>
+
+  <header class="site-header" aria-label="Navegação principal">
+    <a class="brand" href="index.html#top" aria-label="Agente Diy">
+      <span class="brand-mark" aria-hidden="true"></span>
+      <span>Agente Diy</span>
+    </a>
+    <nav class="nav-links" aria-label="Seções">
+      <a href="index.html#produto">Possibilidades</a>
+      <a href="index.html#fluxo">Como funciona</a>
+      <a href="index.html#validacao">Por que agora</a>
+    </nav>
+    <a class="nav-cta clay-button compact" href="index.html#acesso">Nova aplicação</a>
+  </header>
+
+  <main class="thanks-main" id="conteudo">
+    <section class="thanks-hero" aria-labelledby="thanks-title">
+      <p class="eyebrow">Aplicação recebida</p>
+      <h1 id="thanks-title">Você entrou na lista de espera.</h1>
+      <p>
+        Enviamos um e-mail confirmando sua aplicação. Enquanto o acesso não abre, entre na comunidade para acompanhar os
+        próximos passos e ver os bastidores do Agente Diy.
+      </p>
+      <div class="thanks-actions" aria-label="Próximas ações">
+        <a class="clay-button primary" id="community-link" href="https://chat.whatsapp.com/COLE-O-LINK-DA-COMUNIDADE" target="_blank"
+          rel="noreferrer">Entrar na comunidade do WhatsApp</a>
+        <a class="clay-button" href="index.html#top">Voltar para o site</a>
+      </div>
+      <div class="thanks-note">
+        <strong>Próximo passo:</strong>
+        <span>substituir o link do botão pelo convite real da comunidade do WhatsApp.</span>
+      </div>
+    </section>
+  </main>
+</body>
+
+<script>
+  const communityLink = document.querySelector("#community-link");
+  const configuredCommunityUrl = window.AGENTE_DIY_CONFIG?.communityUrl;
+
+  if (communityLink && configuredCommunityUrl) {
+    communityLink.href = configuredCommunityUrl;
+  }
+</script>
+
+</html>

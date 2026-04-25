@@ -272,7 +272,7 @@ dd {
 
 .hero h1 {
   max-width: 690px;
-  font-size: 60px;
+  font-size: 50px;
   font-weight: 800;
   line-height: 0.98;
   text-wrap: balance;
@@ -566,7 +566,7 @@ dd {
 }
 
 h2 {
-  font-size: 54px;
+  font-size: 40px;
   font-weight: 800;
   line-height: 1.04;
   text-wrap: balance;
@@ -1170,6 +1170,14 @@ select[aria-invalid="true"] {
   background: #fff7f7;
 }
 
+.form-honey {
+  position: absolute;
+  left: -10000px;
+  width: 1px;
+  height: 1px;
+  opacity: 0;
+}
+
 .field-hint,
 .field-error {
   font-size: 13px;
@@ -1178,6 +1186,11 @@ select[aria-invalid="true"] {
 
 .field-hint {
   color: var(--muted);
+}
+
+.optional-label {
+  color: var(--muted);
+  font-weight: 700;
 }
 
 .field-error {
@@ -1236,6 +1249,67 @@ input[type="checkbox"] {
 
 .form-status.is-error {
   color: var(--danger);
+}
+
+.thanks-page {
+  min-height: 100svh;
+}
+
+.thanks-main {
+  display: grid;
+  min-height: 100svh;
+  padding: 120px 20px 44px;
+  place-items: center;
+}
+
+.thanks-hero {
+  width: min(760px, 100%);
+  padding: 42px;
+  border: 1px solid var(--black);
+  border-radius: 28px;
+  background: rgba(255, 255, 255, 0.78);
+  box-shadow: #000 8px 8px 0;
+}
+
+.thanks-hero h1 {
+  max-width: 680px;
+  margin: 0;
+  font-size: 50px;
+  font-weight: 800;
+  line-height: 0.98;
+  text-wrap: balance;
+}
+
+.thanks-hero p {
+  max-width: 630px;
+  margin-top: 18px;
+  color: var(--muted);
+  font-size: 20px;
+  line-height: 1.55;
+}
+
+.thanks-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 14px;
+  margin-top: 28px;
+}
+
+.thanks-note {
+  display: flex;
+  gap: 8px;
+  align-items: flex-start;
+  margin-top: 28px;
+  padding: 14px 16px;
+  border: 1px dashed var(--oat);
+  border-radius: 14px;
+  color: var(--muted);
+  font-size: 14px;
+  line-height: 1.4;
+}
+
+.thanks-note strong {
+  color: var(--black);
 }
 
 .site-footer {
@@ -1297,11 +1371,11 @@ input[type="checkbox"] {
   }
 
   .hero h1 {
-    font-size: 54px;
+    font-size: 50px;
   }
 
   h2 {
-    font-size: 42px;
+    font-size: 40px;
   }
 
   .conversation-section {
@@ -1383,7 +1457,9 @@ input[type="checkbox"] {
   }
 
   .hero-actions,
-  .demo-controls {
+  .demo-controls,
+  .thanks-actions,
+  .thanks-note {
     align-items: stretch;
     flex-direction: column;
   }
@@ -1449,6 +1525,23 @@ input[type="checkbox"] {
 
   h2 {
     font-size: 34px;
+  }
+
+  .thanks-main {
+    padding: 92px 16px 32px;
+  }
+
+  .thanks-hero {
+    padding: 28px 20px;
+  }
+
+  .thanks-hero h1 {
+    font-size: 39px;
+    line-height: 1.02;
+  }
+
+  .thanks-hero p {
+    font-size: 18px;
   }
 
   .workflow-list li,

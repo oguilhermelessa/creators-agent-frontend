@@ -4,7 +4,7 @@
   "description": "Landing page for Creators Agent",
   "main": "index.html",
   "scripts": {
-    "build": "mkdir -p dist && cp index.html styles.css script.js static.json vercel.json dist/ 2>/dev/null || true",
+    "build": "mkdir -p dist && cp index.html obrigado.html styles.css script.js config.js static.json vercel.json dist/ 2>/dev/null || true",
     "start": "serve -p $PORT -s dist"
   },
   "dependencies": {
