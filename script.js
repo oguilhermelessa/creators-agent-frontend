@@ -49,7 +49,6 @@ function getFormData(formElement) {
     niche: String(data.get("niche") || "").trim(),
     audience: String(data.get("audience") || "").trim(),
     goal: String(data.get("goal") || "").trim(),
-    byok: data.get("byok") === "sim",
     createdAt: new Date().toISOString(),
   };
 }
@@ -115,7 +114,6 @@ function validateLeadForm() {
     niche: data.niche ? "" : "Conte sobre o que você cria.",
     audience: data.audience ? "" : "Selecione onde está sua audiência.",
     goal: data.goal ? "" : "Escolha o primeiro uso do seu agente.",
-    byok: data.byok ? "" : "Confirme que topa conversar sobre custos de IA quando o acesso abrir.",
   };
 
   Object.entries(errors).forEach(([field, message]) => setFieldError(field, message));

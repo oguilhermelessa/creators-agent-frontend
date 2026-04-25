@@ -395,18 +395,18 @@
         <input class="form-honey" type="text" name="website" tabindex="-1" autocomplete="off" aria-hidden="true" />
         <div class="form-row">
           <label for="name">Nome <span aria-hidden="true">*</span></label>
-          <input id="name" name="name" type="text" autocomplete="name" required />
+          <input id="name" name="name" type="text" autocomplete="name" placeholder="Seu nome" required />
           <p class="field-error" id="name-error" aria-live="polite"></p>
         </div>
         <div class="form-row">
           <label for="email">E-mail <span aria-hidden="true">*</span></label>
-          <input id="email" name="email" type="email" autocomplete="email" required />
+          <input id="email" name="email" type="email" autocomplete="email" placeholder="voce@exemplo.com" required />
           <p class="field-hint">É por aqui que vamos enviar o convite e os próximos passos.</p>
           <p class="field-error" id="email-error" aria-live="polite"></p>
         </div>
         <div class="form-row">
           <label for="whatsapp">WhatsApp <span class="optional-label">(opcional)</span></label>
-          <input id="whatsapp" name="whatsapp" type="tel" autocomplete="tel" placeholder="DDD + número" />
+          <input id="whatsapp" name="whatsapp" type="tel" autocomplete="tel" placeholder="+55 (11) 99999-9999" />
           <p class="field-hint">Se quiser, deixe um contato rápido para prioridade de onboarding.</p>
           <p class="field-error" id="whatsapp-error" aria-live="polite"></p>
         </div>
@@ -435,11 +435,6 @@
           <label><input type="radio" name="goal" value="autoridade" /> Conversar com meu público</label>
           <p class="field-error" id="goal-error" aria-live="polite"></p>
         </fieldset>
-        <label class="checkbox-row">
-          <input type="checkbox" name="byok" value="sim" required />
-          <span>Topo conversar sobre custos de IA e uso da minha própria key quando o acesso abrir.</span>
-        </label>
-        <p class="field-error" id="byok-error" aria-live="polite"></p>
         <button class="clay-button submit-button" type="submit">Entrar na lista de espera</button>
         <p class="form-status" id="form-status" role="status" aria-live="polite"></p>
       </form>

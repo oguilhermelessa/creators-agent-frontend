@@ -1164,6 +1164,11 @@ select {
   color: var(--black);
 }
 
+input::placeholder {
+  color: #7a7872;
+  opacity: 1;
+}
+
 input[aria-invalid="true"],
 select[aria-invalid="true"] {
   border-color: var(--danger);
@@ -1171,11 +1176,9 @@ select[aria-invalid="true"] {
 }
 
 .form-honey {
-  position: absolute;
-  left: -10000px;
-  width: 1px;
-  height: 1px;
-  opacity: 0;
+  display: none !important;
+  visibility: hidden;
+  pointer-events: none;
 }
 
 .field-hint,

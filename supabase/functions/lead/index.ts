@@ -16,7 +16,6 @@ type LeadPayload = {
   niche?: string;
   audience?: string;
   goal?: string;
-  byok?: boolean;
   createdAt?: string;
   website?: string;
 };
@@ -65,7 +64,6 @@ async function upsertBrevoContact(lead: Required<Omit<LeadPayload, "createdAt" |
     NICHE: lead.niche,
     AUDIENCE: lead.audience,
     GOAL: lead.goal,
-    BYOK: lead.byok ? "sim" : "nao",
     SOURCE: "landing-page",
   };
 
@@ -123,10 +121,9 @@ Deno.serve(async (req) => {
   const niche = String(body.niche || "").trim();
   const audience = String(body.audience || "").trim();
   const goal = String(body.goal || "").trim();
-  const byok = body.byok === true;
   const emailLooksValid = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
 
-  if (!name || !emailLooksValid || !niche || !audience || !goal || !byok) {
+  if (!name || !emailLooksValid || !niche || !audience || !goal) {
     return json(400, { error: "Missing required lead fields" });
   }
 
@@ -142,7 +139,6 @@ Deno.serve(async (req) => {
     niche,
     audience,
     goal,
-    byok,
     source: "landing-page",
   };
 
