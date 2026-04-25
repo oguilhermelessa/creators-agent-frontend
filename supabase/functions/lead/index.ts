@@ -32,7 +32,15 @@ function normalizeEmail(value: string) {
 }
 
 function normalizePhone(value?: string) {
-  return String(value || "").replace(/[^\d+]/g, "");
+  const rawValue = String(value || "").trim();
+  const digits = rawValue.replace(/\D/g, "");
+
+  if (!digits) return "";
+  if (rawValue.startsWith("+")) return `+${digits}`;
+  if (digits.startsWith("55") && (digits.length === 12 || digits.length === 13)) return `+${digits}`;
+  if (digits.length === 10 || digits.length === 11) return `+55${digits}`;
+
+  return `+${digits}`;
 }
 
 async function brevoRequest(path: string, init: RequestInit) {
@@ -56,6 +64,11 @@ async function brevoRequest(path: string, init: RequestInit) {
   return data;
 }
 
+function isWhatsAppAttributeError(error: unknown) {
+  if (!(error instanceof Error)) return false;
+  return /whatsapp/i.test(error.message);
+}
+
 async function upsertBrevoContact(lead: Required<Omit<LeadPayload, "createdAt" | "website">>) {
   const listId = Number(Deno.env.get("BREVO_LIST_ID"));
   const attributes: Record<string, string> = {
@@ -71,7 +84,7 @@ async function upsertBrevoContact(lead: Required<Omit<LeadPayload, "createdAt" |
     if (!attributes[key]) delete attributes[key];
   });
 
-  return brevoRequest("/contacts", {
+  const request = () => brevoRequest("/contacts", {
     method: "POST",
     body: JSON.stringify({
       email: normalizeEmail(lead.email),
@@ -80,6 +93,16 @@ async function upsertBrevoContact(lead: Required<Omit<LeadPayload, "createdAt" |
       updateEnabled: true,
     }),
   });
+
+  try {
+    return await request();
+  } catch (error) {
+    if (attributes.WHATSAPP && isWhatsAppAttributeError(error)) {
+      delete attributes.WHATSAPP;
+      return request();
+    }
+    throw error;
+  }
 }
 
 async function sendWelcomeEmail(lead: Required<Omit<LeadPayload, "createdAt" | "website">>) {
